@@ -1,0 +1,53 @@
+<div style="position:relative" class="container">
+    <div>
+        <h3>Online Store</h3>
+    </div>
+    <hr>
+    <cart-summary></cart-summary>
+    
+    <div style="height:50px"></div>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <button style="border-radius:0" class="btn btn-primary btn-block" (click)="changeCat()">Home</button>
+            <button style="border-radius:0" *ngFor="let cat of categories" [class.active]="cat == selectedCat" 
+                (click)="changeCat(cat)" class="btn btn-primary btn-block">
+                    {{cat}}
+            </button>
+            <button class="btn btn-block btn-danger m-t-3" routerLink="/admin">
+                Admin
+            </button>
+        </div>
+        <div class="col-md-9">
+            <div *ngFor="let product of products" class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">{{product.name}}
+                      <span style="float:right">{{product.price | currency:"USD":true:"2.2-2"}}</span>
+                  </h3>
+                </div>
+                <div class="panel-body">
+                  {{product.description}}<button (click)="addToCart(product)" style="float:right" class="btn btn-primary btn-success">
+                      Add To Cart
+                  </button>
+                </div>
+              </div>
+        </div>
+        <div style="position:fixed; bottom:35px;" >
+            <div class="form-inline m-r-1">
+                <select class="form-control" [value]="productsPerPage"
+                (change)="changePageSize($event.target.value)">
+                <option value="3">3 per Page</option>
+                <option value="4">4 per Page</option>
+                <option value="6">6 per Page</option>
+                <option value="8">8 per Page</option>
+                </select>
+            </div>
+            <div class="btn-group">
+                <button *ngFor="let page of pageNumbers" (click)="changePage(page)"
+                class="btn btn-outline-primary" [class.active]="page == selectedPage">
+                {{page}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
